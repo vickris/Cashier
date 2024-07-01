@@ -1,4 +1,4 @@
-defmodule Checkout do
+defmodule Cashier do
   @moduledoc false
 
   use GenServer
