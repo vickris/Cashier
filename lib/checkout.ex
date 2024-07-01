@@ -10,7 +10,7 @@ defmodule Checkout do
   }
 
   ########################################
-  # CLIENT
+  # ------------ CLIENT -------------------
   ########################################
   def start do
     GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
@@ -37,7 +37,7 @@ defmodule Checkout do
   end
 
   ########################################
-  # SERVER
+  # -------------- SERVER ----------------
   ########################################
   def init(:ok) do
     {:ok, %{}}
