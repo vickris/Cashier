@@ -39,14 +39,17 @@ defmodule Cashier do
   ########################################
   # -------------- SERVER ----------------
   ########################################
+  @impl true
   def init(:ok) do
     {:ok, %{}}
   end
 
+  @impl true
   def handle_call({:view_cart}, _from, state) do
     {:reply, state, state}
   end
 
+  @impl true
   def handle_call({:checkout}, _from, state) do
     total =
       Enum.reduce(state, 0, fn {product, count}, acc ->
@@ -57,6 +60,7 @@ defmodule Cashier do
     {:reply, "£#{total}", state}
   end
 
+  @impl true
   def handle_cast({:add_to_cart, item}, state) do
     state =
       case Map.has_key?(@price_list, item) do
@@ -71,6 +75,7 @@ defmodule Cashier do
     {:noreply, state}
   end
 
+  @impl true
   def handle_cast({:remove_from_cart, item}, state) do
     state =
       case Map.has_key?(@price_list, item) do
@@ -88,6 +93,7 @@ defmodule Cashier do
     {:noreply, state}
   end
 
+  @impl true
   def handle_cast({:clear_cart}, _state) do
     {:noreply, %{}}
   end
