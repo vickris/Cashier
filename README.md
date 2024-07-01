@@ -36,4 +36,7 @@ Clear Cart
 Cashier.clear_cart()
 ```
 
+### Tests
+Run `mix test test/cashier_test.exs`
+
 **Other things to Note:** **Agent** would have solved the task as well.
