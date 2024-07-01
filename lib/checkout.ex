@@ -1,15 +1,6 @@
 defmodule Checkout do
-  @moduledoc """
-  Simple Cashier function that adds products to a cart and displays the total price
-  SPECIAL RULES:
-  1. The CEO is a big fan of buy-one-get-one-free offers and of green tea. He wants us to add a
-      rule to do this.
-  2. The COO, though, likes low prices and wants people buying strawberries to get a price
-      discount for bulk purchases. If you buy 3 or more strawberries, the price should drop to £4.50
-      per strawberry.
-  3. The CTO is a coffee addict. If you buy 3 or more coffees, the price of all coffees should drop
-      to two thirds of the original price.
-  """
+  @moduledoc false
+
   use GenServer
 
   @price_list %{
