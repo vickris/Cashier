@@ -20,6 +20,7 @@ Cashier.checkout()
 ```
 
 **------ NOT PART OF INITIAL SCOPE BUT WOULD BE HANDY -------**
+
 View Cart
 ```
 Cashier.view_cart()
