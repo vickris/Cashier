@@ -1,5 +1,7 @@
-defmodule Cashier do
-  @moduledoc false
+defmodule Cashier.CashierServer do
+  @moduledoc """
+  Contains functions that respond to events from the client
+  """
 
   use GenServer
 
@@ -9,36 +11,6 @@ defmodule Cashier do
     "CF1" => 11.23
   }
 
-  ##########################################
-  # ------------ CLIENT -------------------
-  ##########################################
-  def start do
-    GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
-  end
-
-  def add_to_cart(item) do
-    GenServer.cast(__MODULE__, {:add_to_cart, item})
-  end
-
-  def remove_from_cart(item) do
-    GenServer.cast(__MODULE__, {:remove_from_cart, item})
-  end
-
-  def clear_cart() do
-    GenServer.cast(__MODULE__, {:clear_cart})
-  end
-
-  def view_cart() do
-    GenServer.call(__MODULE__, {:view_cart})
-  end
-
-  def checkout() do
-    GenServer.call(__MODULE__, {:checkout})
-  end
-
-  ########################################
-  # -------------- SERVER ----------------
-  ########################################
   @impl true
   def init(:ok) do
     {:ok, %{}}
