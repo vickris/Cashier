@@ -18,14 +18,14 @@ defmodule Cashier.CashierClient do
   end
 
   def clear_cart() do
-    GenServer.cast(@server, {:clear_cart})
+    GenServer.cast(@server, :clear_cart)
   end
 
   def view_cart() do
-    GenServer.call(@server, {:view_cart})
+    GenServer.call(@server, :view_cart)
   end
 
   def checkout() do
-    GenServer.call(@server, {:checkout})
+    GenServer.call(@server, :checkout)
   end
 end

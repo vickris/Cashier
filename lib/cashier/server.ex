@@ -17,12 +17,12 @@ defmodule Cashier.CashierServer do
   end
 
   @impl true
-  def handle_call({:view_cart}, _from, state) do
+  def handle_call(:view_cart, _from, state) do
     {:reply, state, state}
   end
 
   @impl true
-  def handle_call({:checkout}, _from, state) do
+  def handle_call(:checkout, _from, state) do
     total =
       Enum.reduce(state, 0, fn {product, count}, acc ->
         acc + apply_rules({product, count})
@@ -66,7 +66,7 @@ defmodule Cashier.CashierServer do
   end
 
   @impl true
-  def handle_cast({:clear_cart}, _state) do
+  def handle_cast(:clear_cart, _state) do
     {:noreply, %{}}
   end
 
