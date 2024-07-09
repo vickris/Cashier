@@ -31,13 +31,15 @@ defmodule Cashier.CashierServer do
 
   @impl true
   def handle_call(:checkout, _from, state) do
-    total =
-      Enum.reduce(state, 0, fn {product, count}, acc ->
-        acc + apply_rules({product, count})
+    {:ok, total} =
+      Enum.reduce(state, Money.new(0, :GBP), fn {product, count}, acc ->
+        other = apply_rules({product, count})
+        {:ok, acc} = Money.sum([acc, other])
+        acc
       end)
-      |> Float.round(2)
+      |> Money.to_string()
 
-    {:reply, "£#{total}", state}
+    {:reply, total, state}
   end
 
   @impl true
@@ -88,23 +90,34 @@ defmodule Cashier.CashierServer do
     %Inventory{price_list: price_list} = %Inventory{}
 
     case rem(count, 2) do
-      0 -> count / 2 * price_list["GR1"]
-      _ -> ceil(count / 2) * price_list["GR1"]
+      0 ->
+        Money.mult!(Money.from_float(price_list["GR1"], :GBP), count / 2)
+
+      _ ->
+        Money.mult!(Money.from_float(price_list["GR1"], :GBP), ceil(count / 2))
     end
   end
 
   defp apply_rules({"SR1", count}) when count >= 3 do
-    count * 4.50
+    Money.mult!(Money.from_float(4.50, :GBP), count)
   end
 
   defp apply_rules({"CF1", count}) when count >= 3 do
     %Inventory{price_list: price_list} = %Inventory{}
 
-    count * price_list["CF1"] * 2 / 3
+    Money.from_float(
+      price_list["CF1"],
+      :GBP
+    )
+    |> Money.mult!(count)
+    |> Money.mult!(2 / 3)
+
+    # count * price_list["CF1"] * 2 / 3
   end
 
   defp apply_rules({product, count}) do
     %Inventory{price_list: price_list} = %Inventory{}
-    count * price_list[product]
+
+    Money.mult!(Money.from_float(price_list[product], :GBP), count)
   end
 end
