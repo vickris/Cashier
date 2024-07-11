@@ -111,8 +111,6 @@ defmodule Cashier.CashierServer do
     )
     |> Money.mult!(count)
     |> Money.mult!(2 / 3)
-
-    # count * price_list["CF1"] * 2 / 3
   end
 
   defp apply_rules({product, count}) do
